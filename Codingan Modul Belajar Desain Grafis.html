@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul Digital CorelDRAW - SMK Multimedia</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet">
+  <style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif}
+.tab-active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 15px rgba(99,102,241,.4)}
+.tab-inactive{background:rgba(255,255,255,.08);color:#94a3b8;border:1px solid rgba(255,255,255,.1)}
+.tab-inactive:hover{background:rgba(255,255,255,.15);color:#e2e8f0}
+.card-glass{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:16px}
+.tool-card{background:linear-gradient(145deg,rgba(99,102,241,.12),rgba(139,92,246,.08));border:1px solid rgba(99,102,241,.2);border-radius:14px;transition:all .3s}
+.tool-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(99,102,241,.25);border-color:rgba(99,102,241,.5)}
+.opt-btn{padding:10px 16px;border-radius:12px;text-align:left;transition:all .2s;border:2px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;width:100%;font-size:14px;color:#cbd5e1}
+.opt-btn:hover{border-color:rgba(99,102,241,.5);background:rgba(99,102,241,.1)}
+.opt-selected{border-color:#6366f1!important;background:rgba(99,102,241,.15)!important;color:#e2e8f0!important}
+.opt-correct{border-color:#22c55e!important;background:rgba(34,197,94,.15)!important;color:#22c55e!important}
+.opt-wrong{border-color:#ef4444!important;background:rgba(239,68,68,.15)!important;color:#ef4444!important}
+.gradient-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.progress-bar{height:4px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#6366f1,#a78bfa);border-radius:99px;transition:width .5s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .5s ease forwards}
+.section-card{animation:fadeUp .5s ease forwards;opacity:0}
+.section-card:nth-child(1){animation-delay:.1s}
+.section-card:nth-child(2){animation-delay:.2s}
+.section-card:nth-child(3){animation-delay:.3s}
+.section-card:nth-child(4){animation-delay:.4s}
+.section-card:nth-child(5){animation-delay:.5s}
+.lkpd-textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#e2e8f0;padding:14px;width:100%;min-height:100px;resize:vertical;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;transition:border-color .2s}
+.lkpd-textarea:focus{outline:none;border-color:#6366f1}
+.hero-pattern{background-image:radial-gradient(rgba(99,102,241,.15) 1px,transparent 1px);background-size:24px 24px}
+.scroll-area{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(99,102,241,.3) transparent}
+.scroll-area::-webkit-scrollbar{width:6px}
+.scroll-area::-webkit-scrollbar-track{background:transparent}
+.scroll-area::-webkit-scrollbar-thumb{background:rgba(99,102,241,.3);border-radius:99px}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-[#0f1129] text-slate-200 overflow-hidden">
+  <div id="app" class="h-full w-full flex flex-col"><!-- Header -->
+   <header class="flex-shrink-0 px-4 sm:px-6 py-3 flex items-center justify-between border-b border-white/10" style="background:linear-gradient(180deg,rgba(15,17,41,.95),rgba(15,17,41,.8))">
+    <div class="flex items-center gap-3">
+     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><i data-lucide="palette" style="width:20px;height:20px;color:#fff"></i>
+     </div>
+     <div>
+      <h1 id="mainTitle" class="text-base sm:text-lg font-bold leading-tight gradient-text" style="font-family:'Space Mono',monospace">CorelDRAW Mastery</h1>
+      <p class="text-[11px] text-slate-500">SMK Multimedia • Fase F Kelas XI</p>
+     </div>
+    </div>
+    <div class="text-right hidden sm:block">
+     <p class="text-[11px] text-slate-500">Dibuat oleh</p>
+     <p class="text-xs font-semibold text-slate-400">DENIL FETRIYAN</p>
+     <p class="text-[10px] text-slate-600">NIM: 2023XXXXXX</p>
+    </div>
+   </header><!-- Tabs -->
+   <nav class="flex-shrink-0 px-4 sm:px-6 py-3 flex gap-2 sm:gap-3"><button onclick="switchTab(0)" id="tab0" class="tab-active flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"> <i data-lucide="book-open" style="width:16px;height:16px"></i><span class="hidden sm:inline">Materi</span> </button> <button onclick="switchTab(1)" id="tab1" class="tab-inactive flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"> <i data-lucide="edit-3" style="width:16px;height:16px"></i><span class="hidden sm:inline">LKPD</span> </button> <button onclick="switchTab(2)" id="tab2" class="tab-inactive flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all"> <i data-lucide="check-circle" style="width:16px;height:16px"></i><span class="hidden sm:inline">Assessment</span> </button>
+   </nav><!-- Content Area -->
+   <main class="flex-1 overflow-hidden px-4 sm:px-6 pb-4"><!-- TAB 0: MATERI -->
+    <div id="panel0" class="h-full scroll-area pr-1">
+     <div class="max-w-4xl mx-auto space-y-6 pb-8"><!-- Hero -->
+      <div class="section-card card-glass p-6 sm:p-8 hero-pattern relative overflow-hidden">
+       <div class="absolute top-0 right-0 w-40 h-40 rounded-full opacity-20" style="background:radial-gradient(circle,#6366f1,transparent 70%);filter:blur(30px)"></div>
+       <div class="relative z-10"><span class="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3" style="background:rgba(99,102,241,.2);color:#a5b4fc">📐 Desain Grafis Vektor</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold mb-3 gradient-text">Mengenal CorelDRAW</h2>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-2xl">CorelDRAW adalah software desain grafis berbasis vektor yang digunakan untuk membuat infografis, poster, logo, brosur, dan berbagai karya desain profesional lainnya.</p>
+       <div class="absolute bottom-4 right-4 opacity-70">
+    <img 
+        src="assets/logo-coreldraw.png"
+        alt="CorelDRAW Logo"
+        class="w-32 h-auto object-contain"
+    >
+</div>
+      </div><!-- Apa itu CorelDRAW -->
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><i data-lucide="info" style="width:18px;height:18px;color:#fff"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Apa itu CorelDRAW?</h3>
+       </div>
+       <div class="space-y-3 text-sm text-slate-300 leading-relaxed">
+        <p>CorelDRAW merupakan software editor grafis vektor yang dikembangkan oleh <strong class="text-indigo-300">Corel Corporation</strong>. Software ini pertama kali dirilis tahun 1989 dan menjadi standar industri desain grafis.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+         <div class="text-center p-3 rounded-xl" style="background:rgba(99,102,241,.1)">
+          <div class="text-2xl mb-1">
+           🎨
+          </div>
+          <p class="text-xs font-semibold text-indigo-300">Infografis</p>
+         </div>
+         <div class="text-center p-3 rounded-xl" style="background:rgba(236,72,153,.1)">
+          <div class="text-2xl mb-1">
+           📋
+          </div>
+          <p class="text-xs font-semibold text-pink-300">Poster</p>
+         </div>
+         <div class="text-center p-3 rounded-xl" style="background:rgba(34,211,238,.1)">
+          <div class="text-2xl mb-1">
+           ✏️
+          </div>
+          <p class="text-xs font-semibold text-cyan-300">Logo</p>
+         </div>
+         <div class="text-center p-3 rounded-xl" style="background:rgba(250,204,21,.1)">
+          <div class="text-2xl mb-1">
+           📰
+          </div>
+          <p class="text-xs font-semibold text-yellow-300">Brosur</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Interface CorelDRAW -->
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#ec4899,#f472b6)"><i data-lucide="monitor" style="width:18px;height:18px;color:#fff"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Interface CorelDRAW</h3>
+       </div><!-- Visual Interface Diagram -->
+       <div class="rounded-xl overflow-hidden border border-white/10" style="background:#1a1d3a">
+        <div class="flex items-center gap-2 px-4 py-2 border-b border-white/10" style="background:rgba(255,255,255,.05)">
+         <div class="flex gap-1.5">
+          <span class="w-3 h-3 rounded-full bg-red-500"></span><span class="w-3 h-3 rounded-full bg-yellow-500"></span><span class="w-3 h-3 rounded-full bg-green-500"></span>
+         </div><span class="text-xs text-slate-500 ml-2">CorelDRAW 2024</span>
+        </div><!-- Menu Bar -->
+        <div class="px-3 py-1.5 flex gap-4 text-[11px] text-slate-400 border-b border-white/5" style="background:rgba(255,255,255,.03)"><span>File</span><span>Edit</span><span>View</span><span>Layout</span><span>Object</span><span>Effects</span><span>Text</span><span>Tools</span><span>Window</span><span>Help</span>
+        </div>
+        <div class="flex"><!-- Toolbox -->
+         <div class="w-10 border-r border-white/5 py-2 flex flex-col items-center gap-1.5" style="background:rgba(255,255,255,.02)">
+          <div class="w-6 h-6 rounded bg-indigo-500/30 flex items-center justify-center text-[9px] text-indigo-300" title="Pick Tool">
+           ↖
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           □
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           ○
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           ✎
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           T
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           🪣
+          </div>
+          <div class="w-6 h-6 rounded bg-white/5 flex items-center justify-center text-[9px] text-slate-500">
+           ✂
+          </div>
+         </div><!-- Canvas -->
+         <div class="flex-1 p-4 flex items-center justify-center" style="min-height:160px">
+          <div class="w-40 h-28 bg-white rounded shadow-lg flex items-center justify-center">
+           <p class="text-[10px] text-slate-400 font-semibold">Drawing Page</p>
+          </div>
+         </div><!-- Docker -->
+         <div class="w-20 border-l border-white/5 py-2 px-2" style="background:rgba(255,255,255,.02)">
+          <p class="text-[9px] text-indigo-400 font-bold mb-1">Properties</p>
+          <div class="space-y-1">
+           <div class="h-2 w-full rounded bg-white/5"></div>
+           <div class="h-2 w-3/4 rounded bg-white/5"></div>
+           <div class="h-2 w-full rounded bg-white/5"></div>
+          </div>
+          <p class="text-[9px] text-indigo-400 font-bold mt-3 mb-1">Layers</p>
+          <div class="space-y-1">
+           <div class="h-2 w-full rounded bg-white/5"></div>
+           <div class="h-2 w-2/3 rounded bg-white/5"></div>
+          </div>
+         </div>
+        </div><!-- Color Palette -->
+        <div class="flex items-center gap-1 px-3 py-1.5 border-t border-white/5" style="background:rgba(255,255,255,.02)"><span class="text-[9px] text-slate-500 mr-2">Palette:</span> <span class="w-4 h-4 rounded-sm bg-red-500"></span> <span class="w-4 h-4 rounded-sm bg-orange-500"></span> <span class="w-4 h-4 rounded-sm bg-yellow-500"></span> <span class="w-4 h-4 rounded-sm bg-green-500"></span> <span class="w-4 h-4 rounded-sm bg-cyan-500"></span> <span class="w-4 h-4 rounded-sm bg-blue-500"></span> <span class="w-4 h-4 rounded-sm bg-indigo-500"></span> <span class="w-4 h-4 rounded-sm bg-purple-500"></span> <span class="w-4 h-4 rounded-sm bg-pink-500"></span> <span class="w-4 h-4 rounded-sm bg-white"></span> <span class="w-4 h-4 rounded-sm bg-gray-500"></span> <span class="w-4 h-4 rounded-sm bg-black border border-white/20"></span>
+        </div>
+       </div>
+       <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 rounded-lg" style="background:rgba(99,102,241,.08)">
+         <p class="font-bold text-indigo-300 mb-1">🔧 Toolbox</p>
+         <p class="text-slate-400">Kumpulan alat untuk menggambar &amp; mengedit objek</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background:rgba(236,72,153,.08)">
+         <p class="font-bold text-pink-300 mb-1">📐 Drawing Page</p>
+         <p class="text-slate-400">Area kerja utama untuk membuat desain</p>
+        </div>
+        <div class="p-3 rounded-lg" style="background:rgba(34,211,238,.08)">
+         <p class="font-bold text-cyan-300 mb-1">📂 Docker/Panel</p>
+         <p class="text-slate-400">Panel properti, layer, dan pengaturan objek</p>
+        </div>
+       </div>
+      </div><!-- Tools CorelDRAW -->
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#22d3ee,#06b6d4)"><i data-lucide="wrench" style="width:18px;height:18px;color:#fff"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Tools Penting CorelDRAW</h3>
+       </div>
+       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="toolsGrid"></div>
+      </div><!-- Tips Membuat Infografis -->
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#f59e0b,#eab308)"><i data-lucide="lightbulb" style="width:18px;height:18px;color:#fff"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white">Tips Membuat Infografis &amp; Poster</h3>
+       </div>
+       <div class="space-y-3">
+        <div class="flex gap-3 items-start p-3 rounded-xl" style="background:rgba(245,158,11,.06)"><span class="text-lg">1️⃣</span>
+         <div>
+          <p class="text-sm font-semibold text-yellow-300">Tentukan Tujuan</p>
+          <p class="text-xs text-slate-400">Tentukan pesan utama yang ingin disampaikan kepada audiens</p>
+         </div>
+        </div>
+        <div class="flex gap-3 items-start p-3 rounded-xl" style="background:rgba(99,102,241,.06)"><span class="text-lg">2️⃣</span>
+         <div>
+          <p class="text-sm font-semibold text-indigo-300">Buat Layout</p>
+          <p class="text-xs text-slate-400">Gunakan Guidelines dan Grid untuk mengatur tata letak elemen</p>
+         </div>
+        </div>
+        <div class="flex gap-3 items-start p-3 rounded-xl" style="background:rgba(236,72,153,.06)"><span class="text-lg">3️⃣</span>
+         <div>
+          <p class="text-sm font-semibold text-pink-300">Pilih Warna yang Konsisten</p>
+          <p class="text-xs text-slate-400">Gunakan Color Palette yang harmonis, maksimal 3-4 warna utama</p>
+         </div>
+        </div>
+        <div class="flex gap-3 items-start p-3 rounded-xl" style="background:rgba(34,211,238,.06)"><span class="text-lg">4️⃣</span>
+         <div>
+          <p class="text-sm font-semibold text-cyan-300">Tipografi yang Tepat</p>
+          <p class="text-xs text-slate-400">Gunakan maksimal 2-3 jenis font dengan hierarki yang jelas</p>
+         </div>
+        </div>
+        <div class="flex gap-3 items-start p-3 rounded-xl" style="background:rgba(34,197,94,.06)"><span class="text-lg">5️⃣</span>
+         <div>
+          <p class="text-sm font-semibold text-green-300">Export dengan Benar</p>
+          <p class="text-xs text-slate-400">Export ke PDF/PNG dengan resolusi minimal 300 DPI untuk cetak</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div><!-- TAB 1: LKPD -->
+    <div id="panel1" class="h-full scroll-area pr-1 hidden">
+     <div class="max-w-4xl mx-auto space-y-6 pb-8">
+      <div class="section-card card-glass p-6 sm:p-8">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#f472b6,#ec4899)"><i data-lucide="clipboard-list" style="width:20px;height:20px;color:#fff"></i>
+        </div>
+        <div>
+         <h2 class="text-xl font-extrabold gradient-text">Lembar Kerja Peserta Didik</h2>
+         <p class="text-xs text-slate-500">Kerjakan semua tugas di bawah ini</p>
+        </div>
+       </div>
+      </div><!-- LKPD Tasks -->
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-2 mb-3"><span class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:rgba(99,102,241,.2);color:#a5b4fc">Tugas 1</span>
+        <h3 class="text-sm font-bold text-white">Identifikasi Interface CorelDRAW</h3>
+       </div>
+       <p class="text-xs text-slate-400 mb-3">Jelaskan fungsi dari 5 bagian utama interface CorelDRAW (Menu Bar, Toolbox, Drawing Page, Property Bar, Docker)!</p><textarea class="lkpd-textarea" placeholder="Tuliskan jawaban kamu di sini..."></textarea>
+      </div>
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-2 mb-3"><span class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:rgba(236,72,153,.2);color:#f9a8d4">Tugas 2</span>
+        <h3 class="text-sm font-bold text-white">Analisis Tools</h3>
+       </div>
+       <p class="text-xs text-slate-400 mb-3">Pilih 5 tools CorelDRAW yang menurutmu paling penting untuk membuat poster. Jelaskan alasanmu!</p><textarea class="lkpd-textarea" placeholder="Tuliskan jawaban kamu di sini..."></textarea>
+      </div>
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-2 mb-3"><span class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:rgba(34,211,238,.2);color:#67e8f9">Tugas 3</span>
+        <h3 class="text-sm font-bold text-white">Perencanaan Desain Infografis</h3>
+       </div>
+       <p class="text-xs text-slate-400 mb-3">Buat sketsa perencanaan infografis tentang topik bebas. Deskripsikan elemen-elemen yang akan kamu gunakan (warna, font, layout, dan tools yang dipakai)!</p><textarea class="lkpd-textarea" placeholder="Tuliskan jawaban kamu di sini..." style="min-height:140px"></textarea>
+      </div>
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-2 mb-3"><span class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:rgba(250,204,21,.2);color:#fde047">Tugas 4</span>
+        <h3 class="text-sm font-bold text-white">Perbandingan Format Ekspor</h3>
+       </div>
+       <p class="text-xs text-slate-400 mb-3">Jelaskan perbedaan antara format file CDR, PDF, PNG, dan SVG. Kapan sebaiknya masing-masing format digunakan?</p><textarea class="lkpd-textarea" placeholder="Tuliskan jawaban kamu di sini..."></textarea>
+      </div>
+      <div class="section-card card-glass p-6">
+       <div class="flex items-center gap-2 mb-3"><span class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:rgba(34,197,94,.2);color:#86efac">Tugas 5</span>
+        <h3 class="text-sm font-bold text-white">Studi Kasus</h3>
+       </div>
+       <p class="text-xs text-slate-400 mb-3">Kamu diminta membuat poster acara sekolah berukuran A3. Jelaskan langkah-langkah yang akan kamu lakukan di CorelDRAW dari awal sampai siap cetak!</p><textarea class="lkpd-textarea" placeholder="Tuliskan jawaban kamu di sini..." style="min-height:140px"></textarea>
+      </div>
+     </div>
+    </div><!-- TAB 2: ASSESSMENT -->
+    <div id="panel2" class="h-full scroll-area pr-1 hidden">
+     <div class="max-w-3xl mx-auto space-y-5 pb-8" id="assessmentContainer">
+      <div class="section-card card-glass p-6 sm:p-8">
+       <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#22c55e,#16a34a)"><i data-lucide="award" style="width:20px;height:20px;color:#fff"></i>
+        </div>
+        <div>
+         <h2 class="text-xl font-extrabold gradient-text">Assessment</h2>
+         <p class="text-xs text-slate-500">10 Soal Pilihan Ganda (5 LOTS + 5 HOTS)</p>
+        </div>
+       </div>
+       <div class="progress-bar mt-3">
+        <div id="quizProgress" class="progress-fill" style="width:0%"></div>
+       </div>
+       <p class="text-xs text-slate-500 mt-1"><span id="answeredCount">0</span>/10 soal dijawab</p>
+      </div>
+      <div id="quizArea"></div><!-- Submit Area -->
+      <div id="submitArea" class="section-card card-glass p-6 text-center"><button onclick="submitQuiz()" id="submitBtn" class="px-8 py-3 rounded-xl font-bold text-white text-sm transition-all" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 4px 15px rgba(99,102,241,.4)"> <span class="flex items-center justify-center gap-2"><i data-lucide="send" style="width:16px;height:16px"></i> Kumpulkan Jawaban</span> </button>
+      </div><!-- Result Area (hidden) -->
+      <div id="resultArea" class="hidden">
+       <div class="section-card card-glass p-6 sm:p-8 text-center">
+        <div class="text-5xl mb-3" id="resultEmoji">
+         🎉
+        </div>
+        <h3 class="text-2xl font-extrabold gradient-text mb-1">Hasil Penilaian</h3>
+        <div class="text-5xl font-extrabold text-white my-4" id="scoreDisplay">
+         0
+        </div>
+        <p class="text-sm text-slate-400 mb-1" id="scoreText"></p>
+        <p class="text-xs text-slate-500 mb-4" id="gradeText"></p>
+        <div class="grid grid-cols-2 gap-3 max-w-xs mx-auto mb-5">
+         <div class="p-3 rounded-xl" style="background:rgba(34,197,94,.1)">
+          <p class="text-lg font-bold text-green-400" id="correctCount">0</p>
+          <p class="text-[10px] text-slate-500">Benar</p>
+         </div>
+         <div class="p-3 rounded-xl" style="background:rgba(239,68,68,.1)">
+          <p class="text-lg font-bold text-red-400" id="wrongCount">0</p>
+          <p class="text-[10px] text-slate-500">Salah</p>
+         </div>
+        </div><button onclick="downloadPDF()" class="px-6 py-3 rounded-xl font-bold text-white text-sm transition-all" style="background:linear-gradient(135deg,#ec4899,#f472b6)"> <span class="flex items-center justify-center gap-2"><i data-lucide="download" style="width:16px;height:16px"></i> Unduh Hasil (PDF)</span> </button> <button onclick="resetQuiz()" class="mt-3 px-6 py-2.5 rounded-xl font-semibold text-sm text-slate-400 border border-white/10 hover:bg-white/5 transition-all block mx-auto"> <span class="flex items-center justify-center gap-2"><i data-lucide="refresh-cw" style="width:14px;height:14px"></i> Ulangi Quiz</span> </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </main><!-- Footer -->
+   <footer class="flex-shrink-0 px-4 py-2 text-center border-t border-white/5">
+    <p class="text-[10px] text-slate-600">© 2025 Modul Digital CorelDRAW • DENIL FETRIYAN • Teknologi Pendidikan Semester 4</p>
+   </footer>
+  </div>
+  <script>
+// Tools data
+const tools=[
+  {icon:"↖️",name:"Pick Tool",key:"V",desc:"Memilih, memindahkan, dan mengubah ukuran objek",color:"#6366f1"},
+  {icon:"✏️",name:"Freehand Tool",key:"F5",desc:"Menggambar garis dan kurva secara bebas",color:"#ec4899"},
+  {icon:"📐",name:"Rectangle Tool",key:"F6",desc:"Membuat bentuk persegi dan persegi panjang",color:"#22d3ee"},
+  {icon:"⭕",name:"Ellipse Tool",key:"F7",desc:"Membuat bentuk lingkaran dan elips",color:"#f59e0b"},
+  {icon:"🔤",name:"Text Tool",key:"F8",desc:"Menambahkan dan mengedit teks (Artistic & Paragraph)",color:"#a78bfa"},
+  {icon:"🪣",name:"Fill Tool",key:"G",desc:"Mengisi warna solid, gradient, pattern pada objek",color:"#34d399"},
+  {icon:"🔺",name:"Polygon Tool",key:"Y",desc:"Membuat poligon, bintang, dan bentuk kompleks",color:"#fb923c"},
+  {icon:"📏",name:"Shape Tool",key:"F10",desc:"Mengedit node dan mengubah bentuk kurva objek",color:"#f472b6"},
+  {icon:"✂️",name:"Knife Tool",key:"—",desc:"Memotong objek menjadi beberapa bagian",color:"#38bdf8"},
+  {icon:"🎨",name:"Eyedropper",key:"—",desc:"Mengambil sample warna dari objek lain",color:"#fbbf24"},
+  {icon:"📐",name:"Bezier Tool",key:"—",desc:"Membuat kurva presisi dengan control point",color:"#c084fc"},
+  {icon:"🔄",name:"Blend Tool",key:"—",desc:"Membuat transisi bertahap antara dua objek",color:"#2dd4bf"}
+];
+
+const toolsGrid=document.getElementById('toolsGrid');
+tools.forEach(t=>{
+  toolsGrid.innerHTML+=`<div class="tool-card p-4 flex gap-3 items-start">
+    <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-xl" style="background:${t.color}22">${t.icon}</div>
+    <div>
+      <p class="text-sm font-bold text-white">${t.name} ${t.key!=='—'?`<span class="text-[10px] font-mono px-1.5 py-0.5 rounded ml-1" style="background:rgba(255,255,255,.1);color:#94a3b8">${t.key}</span>`:''}</p>
+      <p class="text-xs text-slate-400 mt-0.5">${t.desc}</p>
+    </div>
+  </div>`;
+});
+
+// Quiz data: 5 LOTS + 5 HOTS
+const questions=[
+  // LOTS
+  {q:"Apa kepanjangan dari CDR pada format file CorelDRAW?",opts:["CorelDRAW Document","CorelDRAW Resource","Corel Design Render","Corel Data Record"],ans:0,type:"LOTS"},
+  {q:"Shortcut keyboard untuk Text Tool di CorelDRAW adalah...",opts:["F5","F6","F7","F8"],ans:3,type:"LOTS"},
+  {q:"Tool yang digunakan untuk memilih dan memindahkan objek disebut...",opts:["Shape Tool","Freehand Tool","Pick Tool","Bezier Tool"],ans:2,type:"LOTS"},
+  {q:"Untuk membuat bentuk lingkaran, tool yang digunakan adalah...",opts:["Rectangle Tool","Polygon Tool","Ellipse Tool","Spiral Tool"],ans:2,type:"LOTS"},
+  {q:"Panel di sisi kanan CorelDRAW yang menampilkan properti objek disebut...",opts:["Toolbox","Menu Bar","Status Bar","Docker"],ans:3,type:"LOTS"},
+  // HOTS
+  {q:"Seorang desainer ingin membuat logo yang bisa diperbesar tanpa pecah. Mengapa CorelDRAW lebih cocok dibanding Photoshop?",opts:["Karena CorelDRAW gratis","Karena CorelDRAW berbasis vektor sehingga gambar tidak pecah saat diperbesar","Karena Photoshop tidak bisa membuat logo","Karena CorelDRAW lebih ringan"],ans:1,type:"HOTS"},
+  {q:"Ketika membuat infografis, kamu menggunakan terlalu banyak font berbeda. Apa dampak negatifnya terhadap desain?",opts:["Desain menjadi lebih menarik","Desain terlihat tidak konsisten dan sulit dibaca","Ukuran file menjadi lebih kecil","Warna menjadi lebih cerah"],ans:1,type:"HOTS"},
+  {q:"Untuk mencetak poster berukuran A3, resolusi minimum yang direkomendasikan adalah 300 DPI. Apa yang terjadi jika menggunakan 72 DPI?",opts:["Hasil cetak lebih tajam","Warna lebih akurat","Hasil cetak akan pecah/buram (pixelated)","Tidak ada perbedaan"],ans:2,type:"HOTS"},
+  {q:"Kamu diminta membuat desain brosur yang akan digunakan untuk cetak dan juga dibagikan secara digital. Format file apa yang paling tepat untuk kedua kebutuhan tersebut?",opts:["CDR saja","JPG dengan resolusi rendah","PDF karena mendukung kualitas cetak dan mudah dibagikan digital","PNG transparan"],ans:2,type:"HOTS"},
+  {q:"Dalam membuat infografis tentang data statistik, seorang siswa langsung menambahkan banyak elemen dekoratif. Apa evaluasimu terhadap pendekatan ini?",opts:["Sangat baik karena membuat infografis menarik","Kurang tepat karena seharusnya menentukan hierarki informasi dan tujuan terlebih dahulu","Tidak masalah selama warnanya menarik","Lebih baik menggunakan foto daripada elemen dekoratif"],ans:1,type:"HOTS"}
+];
+
+let userAnswers=new Array(10).fill(-1);
+let submitted=false;
+
+function renderQuiz(){
+  const area=document.getElementById('quizArea');
+  area.innerHTML='';
+  questions.forEach((q,i)=>{
+    let optsHtml=q.opts.map((o,j)=>{
+      let cls='opt-btn';
+      if(submitted){
+        if(j===q.ans) cls+=' opt-correct';
+        else if(userAnswers[i]===j&&j!==q.ans) cls+=' opt-wrong';
+      }else if(userAnswers[i]===j) cls+=' opt-selected';
+      return `<button class="${cls}" onclick="selectAnswer(${i},${j})" ${submitted?'disabled':''}><span class="font-bold mr-2">${['A','B','C','D'][j]}.</span>${o}</button>`;
+    }).join('');
+    area.innerHTML+=`<div class="section-card card-glass p-5 mb-4">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="px-2 py-0.5 rounded-md text-[10px] font-bold" style="background:${q.type==='HOTS'?'rgba(236,72,153,.2)':'rgba(99,102,241,.2)'};color:${q.type==='HOTS'?'#f9a8d4':'#a5b4fc'}">${q.type}</span>
+        <span class="text-xs text-slate-500">Soal ${i+1}/10</span>
+      </div>
+      <p class="text-sm font-semibold text-white mb-3">${q.q}</p>
+      <div class="space-y-2">${optsHtml}</div>
+      ${submitted?`<p class="text-xs mt-3 ${userAnswers[i]===q.ans?'text-green-400':'text-red-400'}">${userAnswers[i]===q.ans?'✅ Benar!':'❌ Salah — Jawaban: '+['A','B','C','D'][q.ans]}</p>`:''}
+    </div>`;
+  });
+  if(submitted) lucide.createIcons();
+}
+
+function selectAnswer(qi,oi){
+  if(submitted) return;
+  userAnswers[qi]=oi;
+  updateProgress();
+  renderQuiz();
+  lucide.createIcons();
+}
+
+function updateProgress(){
+  const answered=userAnswers.filter(a=>a!==-1).length;
+  document.getElementById('answeredCount').textContent=answered;
+  document.getElementById('quizProgress').style.width=(answered/10*100)+'%';
+}
+
+function submitQuiz(){
+  if(userAnswers.some(a=>a===-1)){
+    // Show inline warning
+    const btn=document.getElementById('submitBtn');
+    btn.style.background='linear-gradient(135deg,#ef4444,#f87171)';
+    btn.innerHTML='<span class="flex items-center justify-center gap-2">⚠️ Jawab semua soal dulu!</span>';
+    setTimeout(()=>{
+      btn.style.background='linear-gradient(135deg,#6366f1,#8b5cf6)';
+      btn.innerHTML='<span class="flex items-center justify-center gap-2"><i data-lucide="send" style="width:16px;height:16px"></i> Kumpulkan Jawaban</span>';
+      lucide.createIcons();
+    },2000);
+    return;
+  }
+  submitted=true;
+  let correct=0;
+  questions.forEach((q,i)=>{if(userAnswers[i]===q.ans)correct++});
+  const score=correct*10;
+  renderQuiz();
+  document.getElementById('submitArea').classList.add('hidden');
+  document.getElementById('resultArea').classList.remove('hidden');
+  document.getElementById('scoreDisplay').textContent=score+'/100';
+  document.getElementById('correctCount').textContent=correct;
+  document.getElementById('wrongCount').textContent=10-correct;
+  document.getElementById('scoreText').textContent=`Kamu menjawab ${correct} dari 10 soal dengan benar`;
+  let grade=score>=90?'Luar Biasa! 🌟':score>=75?'Sangat Baik! 👏':score>=60?'Cukup Baik 👍':'Perlu Belajar Lagi 💪';
+  document.getElementById('gradeText').textContent=grade;
+  document.getElementById('resultEmoji').textContent=score>=75?'🎉':'📚';
+  lucide.createIcons();
+}
+
+function resetQuiz(){
+  submitted=false;
+  userAnswers=new Array(10).fill(-1);
+  updateProgress();
+  renderQuiz();
+  document.getElementById('submitArea').classList.remove('hidden');
+  document.getElementById('resultArea').classList.add('hidden');
+  lucide.createIcons();
+}
+
+function downloadPDF(){
+  let correct=0;
+  questions.forEach((q,i)=>{if(userAnswers[i]===q.ans)correct++});
+  const score=correct*10;
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+
+  let content=`
+<html><head><meta charset="UTF-8"><title>Hasil Assessment CorelDRAW</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;padding:40px;color:#1a1a2e;font-size:12px}
+.header{text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:3px solid #6366f1}
+.header h1{font-size:22px;color:#6366f1;margin-bottom:4px}
+.header p{color:#666;font-size:11px}
+.score-box{text-align:center;padding:20px;margin:20px 0;background:#f0f0ff;border-radius:12px;border:2px solid #6366f1}
+.score-box .score{font-size:42px;font-weight:900;color:#6366f1}
+.score-box .label{color:#666;font-size:11px}
+.stats{display:flex;justify-content:center;gap:30px;margin:15px 0}
+.stats div{text-align:center}
+.stats .num{font-size:20px;font-weight:bold}
+.question{margin:15px 0;padding:14px;border:1px solid #e0e0e0;border-radius:8px;page-break-inside:avoid}
+.question .q-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:bold}
+.lots{background:#e0e7ff;color:#4338ca}
+.hots{background:#fce7f3;color:#be185d}
+.q-text{font-weight:600;margin-bottom:8px;font-size:12px}
+.opt{padding:4px 0;font-size:11px}
+.correct{color:#16a34a;font-weight:bold}
+.wrong{color:#dc2626}
+.footer{margin-top:30px;padding-top:15px;border-top:2px solid #e0e0e0;text-align:center;font-size:10px;color:#999}
+</style></head><body>
+<div class="header">
+  <h1>📐 Hasil Assessment CorelDRAW</h1>
+  <p>Modul Digital SMK Multimedia - Fase F Kelas XI</p>
+  <p>Tanggal: ${dateStr}</p>
+</div>
+<div class="score-box">
+  <div class="label">SKOR AKHIR</div>
+  <div class="score">${score}/100</div>
+  <div class="label">${score>=90?'Luar Biasa! 🌟':score>=75?'Sangat Baik! 👏':score>=60?'Cukup Baik 👍':'Perlu Belajar Lagi 💪'}</div>
+</div>
+<div class="stats">
+  <div><div class="num" style="color:#16a34a">${correct}</div><div style="font-size:10px;color:#666">Benar</div></div>
+  <div><div class="num" style="color:#dc2626">${10-correct}</div><div style="font-size:10px;color:#666">Salah</div></div>
+</div>
+<hr style="margin:20px 0;border:none;border-top:1px solid #e0e0e0">
+<h3 style="margin-bottom:10px;font-size:14px">Detail Jawaban:</h3>`;
+
+  questions.forEach((q,i)=>{
+    const isCorrect=userAnswers[i]===q.ans;
+    content+=`<div class="question">
+      <div class="q-head">
+        <span class="badge ${q.type==='LOTS'?'lots':'hots'}">${q.type}</span>
+        <span style="font-size:10px;color:#999">Soal ${i+1}</span>
+        <span style="font-size:10px;font-weight:bold;color:${isCorrect?'#16a34a':'#dc2626'}">${isCorrect?'✅ BENAR':'❌ SALAH'}</span>
+      </div>
+      <div class="q-text">${q.q}</div>`;
+    q.opts.forEach((o,j)=>{
+      let cls='opt';
+      if(j===q.ans) cls+=' correct';
+      else if(userAnswers[i]===j&&!isCorrect) cls+=' wrong';
+      const marker=j===q.ans?'✔':userAnswers[i]===j&&!isCorrect?'✘':'';
+      content+=`<div class="${cls}">${['A','B','C','D'][j]}. ${o} ${marker}</div>`;
+    });
+    content+=`</div>`;
+  });
+
+  content+=`<div class="footer">
+    <p>Dibuat oleh: <strong>DENIL FETRIYAN</strong> | Teknologi Pendidikan Semester 4</p>
+    <p>Modul Digital CorelDRAW © 2025</p>
+  </div></body></html>`;
+
+  const w=window.open('','_blank');
+  if(w){
+    w.document.write(content);
+    w.document.close();
+    setTimeout(()=>{w.print()},500);
+  }
+}
+
+// Tab switching
+let activeTab=0;
+function switchTab(t){
+  activeTab=t;
+  for(let i=0;i<3;i++){
+    document.getElementById('panel'+i).classList.toggle('hidden',i!==t);
+    const tab=document.getElementById('tab'+i);
+    tab.className=i===t?'tab-active flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all':'tab-inactive flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all';
+  }
+  lucide.createIcons();
+}
+
+// Element SDK
+const defaultConfig={
+  module_title:"CorelDRAW Mastery",
+  background_color:"#0f1129",
+  surface_color:"#1a1d3a",
+  text_color:"#e2e8f0",
+  primary_action:"#6366f1",
+  secondary_action:"#ec4899",
+  font_family:"Plus Jakarta Sans",
+  font_size:14
+};
+
+function applyConfig(config){
+  const bg=config.background_color||defaultConfig.background_color;
+  const sf=config.surface_color||defaultConfig.surface_color;
+  const tx=config.text_color||defaultConfig.text_color;
+  const pa=config.primary_action||defaultConfig.primary_action;
+  const sa=config.secondary_action||defaultConfig.secondary_action;
+  const ff=config.font_family||defaultConfig.font_family;
+  const fs=config.font_size||defaultConfig.font_size;
+
+  document.body.style.backgroundColor=bg;
+  document.body.style.color=tx;
+  document.body.style.fontFamily=`${ff}, sans-serif`;
+  document.body.style.fontSize=fs+'px';
+  document.getElementById('mainTitle').textContent=config.module_title||defaultConfig.module_title;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange:async(config)=>{applyConfig(config)},
+  mapToCapabilities:(config)=>({
+    recolorables:[
+      {get:()=>config.background_color||defaultConfig.background_color,set:v=>{config.background_color=v;window.elementSdk.setConfig({background_color:v})}},
+      {get:()=>config.surface_color||defaultConfig.surface_color,set:v=>{config.surface_color=v;window.elementSdk.setConfig({surface_color:v})}},
+      {get:()=>config.text_color||defaultConfig.text_color,set:v=>{config.text_color=v;window.elementSdk.setConfig({text_color:v})}},
+      {get:()=>config.primary_action||defaultConfig.primary_action,set:v=>{config.primary_action=v;window.elementSdk.setConfig({primary_action:v})}},
+      {get:()=>config.secondary_action||defaultConfig.secondary_action,set:v=>{config.secondary_action=v;window.elementSdk.setConfig({secondary_action:v})}}
+    ],
+    borderables:[],
+    fontEditable:{get:()=>config.font_family||defaultConfig.font_family,set:v=>{config.font_family=v;window.elementSdk.setConfig({font_family:v})}},
+    fontSizeable:{get:()=>config.font_size||defaultConfig.font_size,set:v=>{config.font_size=v;window.elementSdk.setConfig({font_size:v})}}
+  }),
+  mapToEditPanelValues:(config)=>new Map([
+    ["module_title",config.module_title||defaultConfig.module_title]
+  ])
+});
+
+// Init
+renderQuiz();
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9fa20d31500d9b07',t:'MTc3ODUxMTYwOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
